@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e6eba3d-73e5-4f0c-83a9-8674cbe5c199" name="Default Changelist" comment="TankWar0.6">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/out/production/TankWar0.1/com/tankwar/client/Tank.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/out/production/TankWar0.1/com/tankwar/client/TankClient$1.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/out/production/TankWar0.1/com/tankwar/client/TankClient$keyMonitor.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/out/production/TankWar0.1/com/tankwar/client/TankClient$paintThread.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/out/production/TankWar0.1/com/tankwar/client/TankClient.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tankwar/client/Tank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tankwar/client/Tank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tankwar/client/Tank.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tankwar/client/TankClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tankwar/client/TankClient.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -27,16 +27,16 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/tankwar/client/TankClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
+            <state relative-caret-position="444">
+              <caret line="94" column="30" lean-forward="true" selection-start-line="94" selection-start-column="30" selection-end-line="94" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#340#462#0" expanded="true" />
                 <element signature="e#461#462#0" expanded="true" />
-                <element signature="class#paintThread#0;class#TankClient#0" />
-                <element signature="class#keyMonitor#0;class#TankClient#0" />
                 <element signature="e#2239#2240#0" expanded="true" />
                 <element signature="e#2268#2269#0" expanded="true" />
+                <element signature="e#2348#2349#0" expanded="true" />
+                <element signature="e#2377#2378#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -45,8 +45,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/tankwar/client/Tank.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="18" column="13" lean-forward="true" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+            <state relative-caret-position="359">
+              <caret line="74" column="26" lean-forward="true" selection-start-line="74" selection-start-column="26" selection-end-line="74" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -78,8 +78,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/com/tankwar/client/client.java" />
-        <option value="$PROJECT_DIR$/src/com/tankwar/client/Tank.java" />
         <option value="$PROJECT_DIR$/src/com/tankwar/client/TankClient.java" />
+        <option value="$PROJECT_DIR$/src/com/tankwar/client/Tank.java" />
       </list>
     </option>
   </component>
@@ -197,7 +197,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1558079448317</updated>
-      <workItem from="1558079453684" duration="12102000" />
+      <workItem from="1558079453684" duration="17450000" />
     </task>
     <task id="LOCAL-00001" summary="TankWar0.2">
       <created>1558081307666</created>
@@ -220,14 +220,22 @@
       <option name="project" value="LOCAL" />
       <updated>1558092387517</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="TankWar0.6">
+      <created>1558093691420</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1558093691420</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12102000" />
+    <option name="totallyTimeSpent" value="17450000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Designer" />
       <window_info id="Image Layers" />
@@ -235,7 +243,7 @@
       <window_info id="UI Designer" />
       <window_info id="Favorites" side_tool="true" />
       <window_info id="Web" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24962178" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24962178" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
@@ -300,24 +308,24 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/com/tankwar/client/TankClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
+        <state relative-caret-position="444">
+          <caret line="94" column="30" lean-forward="true" selection-start-line="94" selection-start-column="30" selection-end-line="94" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#340#462#0" expanded="true" />
             <element signature="e#461#462#0" expanded="true" />
-            <element signature="class#paintThread#0;class#TankClient#0" />
-            <element signature="class#keyMonitor#0;class#TankClient#0" />
             <element signature="e#2239#2240#0" expanded="true" />
             <element signature="e#2268#2269#0" expanded="true" />
+            <element signature="e#2348#2349#0" expanded="true" />
+            <element signature="e#2377#2378#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tankwar/client/Tank.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="18" column="13" lean-forward="true" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        <state relative-caret-position="359">
+          <caret line="74" column="26" lean-forward="true" selection-start-line="74" selection-start-column="26" selection-end-line="74" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
