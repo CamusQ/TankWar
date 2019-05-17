@@ -12,21 +12,17 @@ import java.awt.event.WindowEvent;
  */
 public class TankClient extends Frame {
 
-    int x = 50;
-    int y = 50;
 
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HEIGHT = 600;
 
+    Tank myTank = new Tank(50, 50);
 
     Image offScreenImage = null;
 
     public void paint(Graphics g) {
 
-        Color c = g.getColor();
-        g.setColor(Color.red);
-        g.fillOval(x, y, 30, 30);//画一个实心圆
-        g.setColor(c);
+       myTank.draw(g);
     }
 
     public void update(Graphics g) {
@@ -91,15 +87,7 @@ public class TankClient extends Frame {
     private class keyMonitor extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
-            int key = e.getKeyCode();
-            switch (key){
-                case KeyEvent.VK_RIGHT:x += 1;break;
-                case KeyEvent.VK_LEFT:x -= 1;break;
-                case KeyEvent.VK_UP:y -= 1;break;
-                case KeyEvent.VK_DOWN:y += 1;break;
-                default:break;
-            }
-
+            myTank.keyPressed(e);
         }
     }
 
