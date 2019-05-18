@@ -25,8 +25,10 @@ public class TankClient extends Frame {
     Image offScreenImage = null;
 
     public void paint(Graphics g) {
+        Color c = g.getColor();
+        g.setColor(Color.white);
         g.drawString("missile count" + missiles.size(), 10, 50);
-
+        g.setColor(c);
        myTank.draw(g);
 
         for (int i = 0; i < missiles.size(); i++) {
