@@ -16,13 +16,17 @@ public class TankClient extends Frame {
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HEIGHT = 600;
 
-    Tank myTank = new Tank(50, 50);
+    Tank myTank = new Tank(50, 50,this);
+    Missile m = null;
 
     Image offScreenImage = null;
 
     public void paint(Graphics g) {
 
        myTank.draw(g);
+
+       if(m != null)
+           m.draw(g);
     }
 
     public void update(Graphics g) {
@@ -33,7 +37,7 @@ public class TankClient extends Frame {
 
         Color c = g.getColor();
         Graphics gOffScreen = offScreenImage.getGraphics();
-        gOffScreen.setColor(Color.green);
+        gOffScreen.setColor(new Color(2, 94, 33));
         gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         gOffScreen.setColor(c);
         paint(gOffScreen);
@@ -53,7 +57,7 @@ public class TankClient extends Frame {
 
         });
         this.setResizable(false);
-        this.setBackground(Color.green);
+        this.setBackground(new Color(2, 94, 33));
 
         this.addKeyListener(new keyMonitor());
 
