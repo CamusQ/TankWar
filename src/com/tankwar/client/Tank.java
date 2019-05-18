@@ -19,10 +19,10 @@ public class Tank {
 
     TankClient tc = null;
 
-
     enum Direction {L, LU, R, RU, U, D, LD, RD, STOP};
 
     private Direction dir = Direction.STOP;
+    private Direction ptDir = Direction.D;
 
 
     public Tank(int x, int y) {
@@ -30,8 +30,8 @@ public class Tank {
         this.y = y;
     }
 
-    public Tank(int x,int y,TankClient tc){
-        this(x,y);
+    public Tank(int x, int y, TankClient tc) {
+        this(x, y);
         this.tc = tc;
     }
 
@@ -41,6 +41,34 @@ public class Tank {
         g.setColor(Color.RED);
         g.fillOval(x, y, WIDTH, HEITH);
         g.setColor(c);
+
+
+        switch (ptDir) {
+            case L:
+                g.drawLine(x + Tank.WIDTH/2, y + Tank.HEITH/2, x, y + Tank.HEITH/2);
+                break;
+            case LU:
+                g.drawLine(x + Tank.WIDTH/2, y + Tank.HEITH/2, x, y);
+                break;
+            case U:
+                g.drawLine(x + Tank.WIDTH/2, y + Tank.HEITH/2, x + Tank.WIDTH/2, y);
+                break;
+            case RU:
+                g.drawLine(x + Tank.WIDTH/2, y + Tank.HEITH/2, x + Tank.WIDTH, y);
+                break;
+            case R:
+                g.drawLine(x + Tank.WIDTH/2, y + Tank.HEITH/2, x + Tank.WIDTH, y + Tank.HEITH/2);
+                break;
+            case RD:
+                g.drawLine(x + Tank.WIDTH/2, y + Tank.HEITH/2, x + Tank.WIDTH, y + Tank.HEITH);
+                break;
+            case D:
+                g.drawLine(x + Tank.WIDTH/2, y + Tank.HEITH/2, x + Tank.WIDTH/2, y + Tank.HEITH);
+                break;
+            case LD:
+                g.drawLine(x + Tank.WIDTH/2, y + Tank.HEITH/2, x, y + Tank.HEITH);
+                break;
+        }
 
         move();
 
@@ -80,21 +108,26 @@ public class Tank {
             case STOP:
                 break;
         }
+
+        if(this.dir != Direction.STOP){
+            ptDir = dir;
+        }
     }
 
-    public Missile fire(){
-        int x1 = this.x + Tank.WIDTH /2 - Missile.WIDTH/2;
-        int y1 = this.y + Tank.HEITH /2 - Missile.HEITH/2;
-        Missile m = new Missile(x1, y1, dir);
+    public Missile fire() {
+        int x1 = this.x + Tank.WIDTH / 2 - Missile.WIDTH / 2;
+        int y1 = this.y + Tank.HEITH / 2 - Missile.HEITH / 2;
+        Missile m = new Missile(x1, y1, ptDir,this.tc);
+        tc.missiles.add(m);
         return m;
     }
 
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         switch (key) {
-            case KeyEvent.VK_X:
-                tc.m = fire();
-                break;
+//            case KeyEvent.VK_X:
+//                fire();
+//                break;
             case KeyEvent.VK_RIGHT:
                 bR = true;
                 break;
@@ -117,6 +150,9 @@ public class Tank {
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         switch (key) {
+            case KeyEvent.VK_X:
+                fire();
+                break;
             case KeyEvent.VK_RIGHT:
                 bR = false;
                 break;
