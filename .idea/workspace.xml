@@ -8,8 +8,6 @@
       <change afterPath="$PROJECT_DIR$/out/production/TankWar0.1/com/tankwar/client/TankClient$paintThread.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/out/production/TankWar0.1/com/tankwar/client/TankClient.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tankwar/client/Tank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tankwar/client/Tank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tankwar/client/TankClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tankwar/client/TankClient.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -212,7 +210,7 @@
       <workItem from="1558079453684" duration="18706000" />
       <workItem from="1558142083759" duration="11950000" />
       <workItem from="1558163744548" duration="270000" />
-      <workItem from="1558164430107" duration="2189000" />
+      <workItem from="1558164430107" duration="2431000" />
     </task>
     <task id="LOCAL-00001" summary="TankWar0.2">
       <created>1558081307666</created>
@@ -256,17 +254,24 @@
       <option name="project" value="LOCAL" />
       <updated>1558148679658</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="TankWar1.4">
+      <created>1558166794758</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1558166794758</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33115000" />
+    <option name="totallyTimeSpent" value="33357000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4966443" visible="true" weight="0.26096824" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4966443" visible="true" weight="0.26096824" />
       <window_info id="Structure" order="1" sideWeight="0.5033557" side_tool="true" visible="true" weight="0.26096824" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -347,7 +352,8 @@
     <MESSAGE value="TankWar0.4" />
     <MESSAGE value="TankWar0.6" />
     <MESSAGE value="TankWar" />
-    <option name="LAST_COMMIT_MESSAGE" value="TankWar" />
+    <MESSAGE value="TankWar1.4" />
+    <option name="LAST_COMMIT_MESSAGE" value="TankWar1.4" />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://D:/Program Files/Java/jdk1.8.0_181/src.zip!/java/awt/Component.java">
