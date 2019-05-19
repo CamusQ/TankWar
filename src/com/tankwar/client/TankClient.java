@@ -20,7 +20,9 @@ public class TankClient extends Frame {
 
     Tank myTank = new Tank(50, 50, true, this);
     Tank enemyTank = new Tank(100, 100, false, this);
+
     List<Missile> missiles = new ArrayList<Missile>();
+    List<Explode> explodes = new ArrayList<Explode>();
 
 
     Image offScreenImage = null;
@@ -28,11 +30,17 @@ public class TankClient extends Frame {
     public void paint(Graphics g) {
         Color c = g.getColor();
         g.setColor(Color.white);
-        g.drawString("missile count" + missiles.size(), 10, 50);
+        g.drawString("missile count : " + missiles.size(), 10, 50);
+        g.drawString("explodes count : " + explodes.size(), 10, 80);
         g.setColor(c);
 
         myTank.draw(g);
         enemyTank.draw(g);
+
+        for (int i = 0; i < explodes.size(); i++) {
+            Explode e = explodes.get(i);
+            e.draw(g);
+        }
 
         for (int i = 0; i < missiles.size(); i++) {
             Missile m = missiles.get(i);
