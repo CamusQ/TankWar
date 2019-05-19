@@ -7,6 +7,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @auther camus
@@ -18,24 +19,28 @@ public class TankClient extends Frame {
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HEIGHT = 600;
 
-    Tank myTank = new Tank(50, 50, true, this);
-    Tank enemyTank = new Tank(100, 100, false, this);
+    Tank myTank = new Tank(50, 50, true, Tank.Direction.STOP,this);
 
     List<Missile> missiles = new ArrayList<Missile>();
     List<Explode> explodes = new ArrayList<Explode>();
-
+    List<Tank> enemyTanks = new ArrayList<Tank>();
 
     Image offScreenImage = null;
 
     public void paint(Graphics g) {
         Color c = g.getColor();
         g.setColor(Color.white);
-        g.drawString("missile count : " + missiles.size(), 10, 50);
-        g.drawString("explodes count : " + explodes.size(), 10, 80);
+        g.drawString("missile    count : " + missiles.size(), 10, 50);
+        g.drawString("explodes   count : " + explodes.size(), 10, 80);
+        g.drawString("enemyTanks count : " + enemyTanks.size(), 10, 110);
         g.setColor(c);
 
         myTank.draw(g);
-        enemyTank.draw(g);
+
+        for (int i = 0; i < enemyTanks.size(); i++) {
+            Tank enemyTank = enemyTanks.get(i);
+            enemyTank.draw(g);
+        }
 
         for (int i = 0; i < explodes.size(); i++) {
             Explode e = explodes.get(i);
@@ -44,10 +49,9 @@ public class TankClient extends Frame {
 
         for (int i = 0; i < missiles.size(); i++) {
             Missile m = missiles.get(i);
-            m.hitTank(enemyTank);
-
+            m.hitTanks(enemyTanks);
+            m.hitTank(myTank);
             m.draw(g);
-
         }
     }
 
@@ -69,6 +73,15 @@ public class TankClient extends Frame {
     }
 
     public void lauchFrame() {
+
+        for (int i = 0; i < 10; i++) {
+            enemyTanks.add(
+                    new Tank(
+                            new Random().nextInt(800),
+                            new Random().nextInt(600), false, Tank.Direction.D ,this));
+        }
+
+
         this.setLocation(400, 100);
         this.setSize(GAME_WIDTH, GAME_HEIGHT);
         this.setTitle("TankWar");

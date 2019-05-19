@@ -2,6 +2,7 @@ package com.tankwar.client;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 /**
  * @auther camus
@@ -9,6 +10,7 @@ import java.awt.event.KeyEvent;
  */
 public class Tank {
     private int x, y;
+
     private static final int XSPEED = 2;
     private static final int YSPEED = 2;
 
@@ -19,16 +21,22 @@ public class Tank {
     private boolean good;
     private boolean live = true;
 
-
-
-    TankClient tc = null;
+    private Random r = new Random();
+    private int step = new Random().nextInt(12) + 3;
 
     enum Direction {L, LU, R, RU, U, D, LD, RD, STOP}
 
     ;
 
+    TankClient tc = null;
+
+
     private Direction dir = Direction.STOP;
     private Direction ptDir = Direction.D;
+
+    public boolean isGood() {
+        return good;
+    }
 
     public boolean isLive() {
         return live;
@@ -45,15 +53,23 @@ public class Tank {
         this.good = good;
     }
 
-    public Tank(int x, int y, boolean good, TankClient tc) {
+    public Tank(int x, int y, boolean good, Direction dir, TankClient tc) {
         this(x, y, good);
+        this.dir = dir;
         this.tc = tc;
     }
 
 
     public void draw(Graphics g) {
 
-        if(!isLive()) return;
+        if (!isLive()) {
+            if (!good)
+                tc.enemyTanks.remove(this);
+            if (tc.enemyTanks.size() < 6) {
+                tc.enemyTanks.add(new Tank(new Random().nextInt(800), new Random().nextInt(600), false, dir, tc));
+            }
+            return;
+        }
 
         Color c = g.getColor();
         if (good == true)
@@ -140,12 +156,25 @@ public class Tank {
         if (y + Tank.HEITH > TankClient.GAME_HEIGHT) y = TankClient.GAME_HEIGHT - Tank.HEITH;
 
 
+        if (!good) {
+            if (step == 0) {
+                Direction dire[] = Direction.values();
+                step = r.nextInt(12) + 3;
+                dir = dire[r.nextInt(dire.length)];
+            }
+            step--;
+            if (r.nextInt(40) > 36)
+                fire();
+        }
+
+
     }
 
     public Missile fire() {
+        if (!live) return null;
         int x1 = this.x + Tank.WIDTH / 2 - Missile.WIDTH / 2;
         int y1 = this.y + Tank.HEITH / 2 - Missile.HEITH / 2;
-        Missile m = new Missile(x1, y1, ptDir, this.tc);
+        Missile m = new Missile(x1, y1, good, ptDir, this.tc);
         tc.missiles.add(m);
         return m;
     }
@@ -153,9 +182,6 @@ public class Tank {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         switch (key) {
-//            case KeyEvent.VK_X:
-//                fire();
-//                break;
             case KeyEvent.VK_RIGHT:
                 bR = true;
                 break;
@@ -211,7 +237,7 @@ public class Tank {
         else dir = Direction.STOP;
     }
 
-    public Rectangle getRectangle(){
+    public Rectangle getRectangle() {
         return new Rectangle(x, y, WIDTH, HEITH);
     }
 

@@ -1,7 +1,7 @@
 package com.tankwar.client;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.util.List;
 
 /**
  * @auther camus
@@ -20,6 +20,7 @@ public class Missile {
     private int y;
 
     private boolean live = true;
+    private boolean good;
 
     private Tank.Direction dir;
 
@@ -33,27 +34,28 @@ public class Missile {
         this.dir = dir;
     }
 
-    public Missile(int x, int y, Tank.Direction dir,TankClient tc){
+    public Missile(int x, int y, boolean good, Tank.Direction dir, TankClient tc) {
         this(x, y, dir);
+        this.good = good;
         this.tc = tc;
     }
 
-    public void draw(Graphics g){
+    public void draw(Graphics g) {
 
-        if(!live){
+        if (!live) {
             tc.missiles.remove(this);
             return;
         }
 
         Color c = g.getColor();
         g.setColor(Color.YELLOW);
-        g.fillOval(x , y , WIDTH, HEITH);
+        g.fillOval(x, y, WIDTH, HEITH);
         g.setColor(c);
 
         move();
     }
 
-    private void move(){
+    private void move() {
         switch (dir) {
             case L:
                 x -= XSPEED;
@@ -86,19 +88,20 @@ public class Missile {
         }
 
 
-
-        if(x < 0 || y < 0 || x > TankClient.GAME_WIDTH || y > TankClient.GAME_HEIGHT){
+        if (x < 0 || y < 0 || x > TankClient.GAME_WIDTH || y > TankClient.GAME_HEIGHT) {
             live = false;
 
         }
 
     }
-    public Rectangle getRectangle(){
+
+    public Rectangle getRectangle() {
         return new Rectangle(x, y, WIDTH, HEITH);
     }
 
-    public boolean hitTank(Tank t){
-        if(this.getRectangle().intersects(t.getRectangle()) && t.isLive()){
+    public boolean hitTank(Tank t) {
+
+        if (this.live && this.getRectangle().intersects(t.getRectangle()) && t.isLive() && t.isGood() != this.good) {
             live = false;
             t.setLive(false);
 
@@ -106,6 +109,14 @@ public class Missile {
             tc.explodes.add(e);
 
             return true;
+        }
+        return false;
+    }
+
+    public boolean hitTanks(List<Tank> enemyTanks) {
+        for (int i = 0; i < enemyTanks.size(); i++) {
+            if (hitTank(enemyTanks.get(i)))
+                return true;
         }
         return false;
     }
