@@ -19,11 +19,14 @@ public class TankClient extends Frame {
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HEIGHT = 600;
 
-    Tank myTank = new Tank(50, 50, true, Tank.Direction.STOP,this);
+    Tank myTank = new Tank(50, 50, true, Tank.Direction.STOP, this);
 
     List<Missile> missiles = new ArrayList<Missile>();
     List<Explode> explodes = new ArrayList<Explode>();
     List<Tank> enemyTanks = new ArrayList<Tank>();
+
+    Wall w1 = new Wall(100, 300, 50, 200, this);
+    Wall w2 = new Wall(400, 500, 200, 50, this);
 
     Image offScreenImage = null;
 
@@ -36,9 +39,15 @@ public class TankClient extends Frame {
         g.setColor(c);
 
         myTank.draw(g);
+        w1.draw(g);
+        w2.draw(g);
+
 
         for (int i = 0; i < enemyTanks.size(); i++) {
             Tank enemyTank = enemyTanks.get(i);
+            enemyTank.collidesWithWall(w1);
+            enemyTank.collidesWithWall(w2);
+            enemyTank.collidesWithTanks(enemyTanks);
             enemyTank.draw(g);
         }
 
@@ -51,6 +60,8 @@ public class TankClient extends Frame {
             Missile m = missiles.get(i);
             m.hitTanks(enemyTanks);
             m.hitTank(myTank);
+            m.hitWall(w1);
+            m.hitWall(w2);
             m.draw(g);
         }
     }
@@ -78,7 +89,7 @@ public class TankClient extends Frame {
             enemyTanks.add(
                     new Tank(
                             new Random().nextInt(800),
-                            new Random().nextInt(600), false, Tank.Direction.D ,this));
+                            new Random().nextInt(600), false, Tank.Direction.D, this));
         }
 
 

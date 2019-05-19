@@ -47,8 +47,12 @@ public class Missile {
             return;
         }
 
+
         Color c = g.getColor();
-        g.setColor(Color.YELLOW);
+        if (good)
+            g.setColor(Color.YELLOW);
+        else
+            g.setColor(Color.BLACK);
         g.fillOval(x, y, WIDTH, HEITH);
         g.setColor(c);
 
@@ -117,6 +121,14 @@ public class Missile {
         for (int i = 0; i < enemyTanks.size(); i++) {
             if (hitTank(enemyTanks.get(i)))
                 return true;
+        }
+        return false;
+    }
+
+    public boolean hitWall(Wall wall) {
+        if (wall.getRec().intersects(this.getRectangle())) {
+            live = false;
+            return true;
         }
         return false;
     }

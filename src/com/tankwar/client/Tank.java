@@ -3,6 +3,7 @@ package com.tankwar.client;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
+import java.util.List;
 
 /**
  * @auther camus
@@ -30,6 +31,9 @@ public class Tank {
 
     TankClient tc = null;
 
+    private int OldX;
+    private int OldY;
+
 
     private Direction dir = Direction.STOP;
     private Direction ptDir = Direction.D;
@@ -50,6 +54,8 @@ public class Tank {
     public Tank(int x, int y, boolean good) {
         this.x = x;
         this.y = y;
+        OldX = x;
+        OldY = y;
         this.good = good;
     }
 
@@ -113,6 +119,9 @@ public class Tank {
     }
 
     public void move() {
+        OldX = x;
+        OldY = y;
+
         switch (dir) {
             case L:
                 x -= XSPEED;
@@ -154,7 +163,6 @@ public class Tank {
         if (y < 30) y = 30;
         if (x + Tank.WIDTH > TankClient.GAME_WIDTH) x = TankClient.GAME_WIDTH - Tank.WIDTH;
         if (y + Tank.HEITH > TankClient.GAME_HEIGHT) y = TankClient.GAME_HEIGHT - Tank.HEITH;
-
 
         if (!good) {
             if (step == 0) {
@@ -239,6 +247,32 @@ public class Tank {
 
     public Rectangle getRectangle() {
         return new Rectangle(x, y, WIDTH, HEITH);
+    }
+
+    public void stay() {
+        x = OldX;
+        y = OldY;
+    }
+
+    public boolean collidesWithWall(Wall wall) {
+        if (this.live && this.getRectangle().intersects(wall.getRec())) {
+            this.stay();
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean collidesWithTanks(List<Tank> tanks) {
+        for (int i = 0; i < tanks.size(); i++) {
+            if (this != tanks.get(i)) {
+                if (this.live && tanks.get(i).live && this.getRectangle().intersects(tanks.get(i).getRectangle())) {
+                    this.stay();
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 
