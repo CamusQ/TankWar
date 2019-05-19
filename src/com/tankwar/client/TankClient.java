@@ -18,7 +18,8 @@ public class TankClient extends Frame {
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HEIGHT = 600;
 
-    Tank myTank = new Tank(50, 50,this);
+    Tank myTank = new Tank(50, 50, true, this);
+    Tank enemyTank = new Tank(100, 100, false, this);
     List<Missile> missiles = new ArrayList<Missile>();
 
 
@@ -29,10 +30,13 @@ public class TankClient extends Frame {
         g.setColor(Color.white);
         g.drawString("missile count" + missiles.size(), 10, 50);
         g.setColor(c);
-       myTank.draw(g);
+
+        myTank.draw(g);
+        enemyTank.draw(g);
 
         for (int i = 0; i < missiles.size(); i++) {
             Missile m = missiles.get(i);
+            m.hitTank(enemyTank);
 
             m.draw(g);
 
@@ -41,7 +45,7 @@ public class TankClient extends Frame {
 
     public void update(Graphics g) {
 
-        if(offScreenImage == null){
+        if (offScreenImage == null) {
             offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
         }
 
@@ -56,7 +60,7 @@ public class TankClient extends Frame {
 
     }
 
-    public void lauchFrame(){
+    public void lauchFrame() {
         this.setLocation(400, 100);
         this.setSize(GAME_WIDTH, GAME_HEIGHT);
         this.setTitle("TankWar");
@@ -83,11 +87,11 @@ public class TankClient extends Frame {
     }
 
     //内部类。可以非常方便的访问包装类的方法。不方便公开的，只为包装类服务类应当定义为内部类
-    private class paintThread implements Runnable{
+    private class paintThread implements Runnable {
 
         @Override
         public void run() {
-            while(true){
+            while (true) {
                 repaint();//repaint 内部自动调用paint（先调用update 再调用paint）
                 try {
                     Thread.sleep(20);
@@ -98,7 +102,7 @@ public class TankClient extends Frame {
         }
     }
 
-    private class keyMonitor extends KeyAdapter{
+    private class keyMonitor extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
             myTank.keyPressed(e);
@@ -109,7 +113,6 @@ public class TankClient extends Frame {
             myTank.keyReleased(e);
         }
     }
-
 
 
 }

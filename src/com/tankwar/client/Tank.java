@@ -16,57 +16,78 @@ public class Tank {
     public static final int HEITH = 30;
 
     private boolean bL = false, bR = false, bU = false, bD = false;
+    private boolean good;
+    private boolean live = true;
+
+
 
     TankClient tc = null;
 
-    enum Direction {L, LU, R, RU, U, D, LD, RD, STOP};
+    enum Direction {L, LU, R, RU, U, D, LD, RD, STOP}
+
+    ;
 
     private Direction dir = Direction.STOP;
     private Direction ptDir = Direction.D;
 
-
-    public Tank(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public boolean isLive() {
+        return live;
     }
 
-    public Tank(int x, int y, TankClient tc) {
-        this(x, y);
+    public void setLive(boolean live) {
+        this.live = live;
+    }
+
+
+    public Tank(int x, int y, boolean good) {
+        this.x = x;
+        this.y = y;
+        this.good = good;
+    }
+
+    public Tank(int x, int y, boolean good, TankClient tc) {
+        this(x, y, good);
         this.tc = tc;
     }
 
 
     public void draw(Graphics g) {
+
+        if(!isLive()) return;
+
         Color c = g.getColor();
-        g.setColor(Color.RED);
+        if (good == true)
+            g.setColor(Color.RED);
+        else
+            g.setColor(Color.MAGENTA);
         g.fillOval(x, y, WIDTH, HEITH);
         g.setColor(c);
 
 
         switch (ptDir) {
             case L:
-                g.drawLine(x + Tank.WIDTH/2, y + Tank.HEITH/2, x, y + Tank.HEITH/2);
+                g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEITH / 2, x, y + Tank.HEITH / 2);
                 break;
             case LU:
-                g.drawLine(x + Tank.WIDTH/2, y + Tank.HEITH/2, x, y);
+                g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEITH / 2, x, y);
                 break;
             case U:
-                g.drawLine(x + Tank.WIDTH/2, y + Tank.HEITH/2, x + Tank.WIDTH/2, y);
+                g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEITH / 2, x + Tank.WIDTH / 2, y);
                 break;
             case RU:
-                g.drawLine(x + Tank.WIDTH/2, y + Tank.HEITH/2, x + Tank.WIDTH, y);
+                g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEITH / 2, x + Tank.WIDTH, y);
                 break;
             case R:
-                g.drawLine(x + Tank.WIDTH/2, y + Tank.HEITH/2, x + Tank.WIDTH, y + Tank.HEITH/2);
+                g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEITH / 2, x + Tank.WIDTH, y + Tank.HEITH / 2);
                 break;
             case RD:
-                g.drawLine(x + Tank.WIDTH/2, y + Tank.HEITH/2, x + Tank.WIDTH, y + Tank.HEITH);
+                g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEITH / 2, x + Tank.WIDTH, y + Tank.HEITH);
                 break;
             case D:
-                g.drawLine(x + Tank.WIDTH/2, y + Tank.HEITH/2, x + Tank.WIDTH/2, y + Tank.HEITH);
+                g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEITH / 2, x + Tank.WIDTH / 2, y + Tank.HEITH);
                 break;
             case LD:
-                g.drawLine(x + Tank.WIDTH/2, y + Tank.HEITH/2, x, y + Tank.HEITH);
+                g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEITH / 2, x, y + Tank.HEITH);
                 break;
         }
 
@@ -109,14 +130,14 @@ public class Tank {
                 break;
         }
 
-        if(this.dir != Direction.STOP){
+        if (this.dir != Direction.STOP) {
             ptDir = dir;
         }
 
-        if(x < 0) x = 0;
-        if(y < 30) y = 30;
-        if(x + Tank.WIDTH > TankClient.GAME_WIDTH) x = TankClient.GAME_WIDTH - Tank.WIDTH;
-        if(y + Tank.HEITH > TankClient.GAME_HEIGHT) y = TankClient.GAME_HEIGHT - Tank.HEITH;
+        if (x < 0) x = 0;
+        if (y < 30) y = 30;
+        if (x + Tank.WIDTH > TankClient.GAME_WIDTH) x = TankClient.GAME_WIDTH - Tank.WIDTH;
+        if (y + Tank.HEITH > TankClient.GAME_HEIGHT) y = TankClient.GAME_HEIGHT - Tank.HEITH;
 
 
     }
@@ -124,7 +145,7 @@ public class Tank {
     public Missile fire() {
         int x1 = this.x + Tank.WIDTH / 2 - Missile.WIDTH / 2;
         int y1 = this.y + Tank.HEITH / 2 - Missile.HEITH / 2;
-        Missile m = new Missile(x1, y1, ptDir,this.tc);
+        Missile m = new Missile(x1, y1, ptDir, this.tc);
         tc.missiles.add(m);
         return m;
     }
@@ -188,6 +209,10 @@ public class Tank {
         else if (!bL && !bR && bU && !bD) dir = Direction.U;
         else if (!bL && !bR && !bU && bD) dir = Direction.D;
         else dir = Direction.STOP;
+    }
+
+    public Rectangle getRectangle(){
+        return new Rectangle(x, y, WIDTH, HEITH);
     }
 
 
