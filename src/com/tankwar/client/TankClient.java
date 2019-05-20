@@ -28,6 +28,8 @@ public class TankClient extends Frame {
     Wall w1 = new Wall(100, 300, 50, 200, this);
     Wall w2 = new Wall(400, 500, 200, 50, this);
 
+    Blood blood = new Blood();
+
     Image offScreenImage = null;
 
     public void paint(Graphics g) {
@@ -36,12 +38,28 @@ public class TankClient extends Frame {
         g.drawString("missile    count : " + missiles.size(), 10, 50);
         g.drawString("explodes   count : " + explodes.size(), 10, 80);
         g.drawString("enemyTanks count : " + enemyTanks.size(), 10, 110);
+        g.drawString("mytank      life : " + myTank.getLife(), 10, 140);
         g.setColor(c);
+
+        if(enemyTanks.size() <= 0){
+            for (int i = 0; i < 5; i++) {
+                enemyTanks.add(
+                        new Tank(
+                                new Random().nextInt(800),
+                                new Random().nextInt(600), false, Tank.Direction.D, this));
+            }
+        }
 
         myTank.draw(g);
         w1.draw(g);
         w2.draw(g);
 
+        myTank.eat();
+        if (blood.isLive()) {
+
+            blood.draw(g);
+            blood.move();
+        }
 
         for (int i = 0; i < enemyTanks.size(); i++) {
             Tank enemyTank = enemyTanks.get(i);

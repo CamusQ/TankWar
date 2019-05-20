@@ -34,9 +34,22 @@ public class Tank {
     private int OldX;
     private int OldY;
 
+    private Direction dire[] = Direction.values();
 
     private Direction dir = Direction.STOP;
     private Direction ptDir = Direction.D;
+
+    private bloodBar bb = new bloodBar();
+
+    private int life = 100;
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
 
     public boolean isGood() {
         return good;
@@ -67,20 +80,25 @@ public class Tank {
 
 
     public void draw(Graphics g) {
+        if(this.getRectangle().intersects(tc.w1.getRec()) || this.getRectangle().intersects(tc.w2.getRec())){
+            this.live = false;
+        }
 
         if (!isLive()) {
             if (!good)
                 tc.enemyTanks.remove(this);
-            if (tc.enemyTanks.size() < 6) {
-                tc.enemyTanks.add(new Tank(new Random().nextInt(800), new Random().nextInt(600), false, dir, tc));
-            }
+//            if (tc.enemyTanks.size() < 6) {
+//                tc.enemyTanks.add(new Tank(new Random().nextInt(800), new Random().nextInt(600), false, dir, tc));
+//            }
             return;
         }
 
         Color c = g.getColor();
-        if (good == true)
+        if (good == true) {
             g.setColor(Color.RED);
-        else
+            bb.draw(g);
+            g.fillOval(x, y, WIDTH, HEITH);
+        } else
             g.setColor(Color.MAGENTA);
         g.fillOval(x, y, WIDTH, HEITH);
         g.setColor(c);
@@ -166,7 +184,6 @@ public class Tank {
 
         if (!good) {
             if (step == 0) {
-                Direction dire[] = Direction.values();
                 step = r.nextInt(12) + 3;
                 dir = dire[r.nextInt(dire.length)];
             }
@@ -178,6 +195,13 @@ public class Tank {
 
     }
 
+    public void eat() {
+        if (this.live && tc.blood.isLive() && this.getRectangle().intersects(tc.blood.getRec())) {
+            this.life = 100;
+            tc.blood.setLive(false);
+        }
+    }
+
     public Missile fire() {
         if (!live) return null;
         int x1 = this.x + Tank.WIDTH / 2 - Missile.WIDTH / 2;
@@ -187,9 +211,25 @@ public class Tank {
         return m;
     }
 
+    public Missile fire(Direction dir) {
+        if (!live) return null;
+        int x1 = this.x + Tank.WIDTH / 2 - Missile.WIDTH / 2;
+        int y1 = this.y + Tank.HEITH / 2 - Missile.HEITH / 2;
+        Missile m = new Missile(x1, y1, good, dir, this.tc);
+        tc.missiles.add(m);
+        return m;
+    }
+
+
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         switch (key) {
+            case KeyEvent.VK_F2 :
+                if(this.good){
+                    this.live = true;
+                    this.life = 100;
+                }
+                break;
             case KeyEvent.VK_RIGHT:
                 bR = true;
                 break;
@@ -202,6 +242,8 @@ public class Tank {
             case KeyEvent.VK_DOWN:
                 bD = true;
                 break;
+            case KeyEvent.VK_A:
+                superFire();
             default:
                 break;
         }
@@ -275,5 +317,21 @@ public class Tank {
         return false;
     }
 
+    public void superFire() {
+        for (int i = 0; i < 8; i++) {
+            fire(dire[i]);
+        }
+    }
+
+    public class bloodBar {
+        public void draw(Graphics g) {
+            Color c = g.getColor();
+            g.setColor(Color.green);
+            int w = WIDTH * life / 100;
+            g.drawRect(x, y - 10, w, 10);
+            g.fillRect(x, y - 10, w, 10);
+            g.setColor(c);
+        }
+    }
 
 }
