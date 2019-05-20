@@ -12,14 +12,14 @@ import java.util.Random;
 /**
  * @auther camus
  * date 2019/5/17 15:52
+ * 游戏主窗口
  */
 public class TankClient extends Frame {
-
 
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HEIGHT = 600;
 
-    Tank myTank = new Tank(50, 50, true, Tank.Direction.STOP, this);
+    Tank myTank = new Tank(50, 50, true, Direction.STOP, this);
 
     List<Missile> missiles = new ArrayList<Missile>();
     List<Explode> explodes = new ArrayList<Explode>();
@@ -42,11 +42,11 @@ public class TankClient extends Frame {
         g.setColor(c);
 
         if(enemyTanks.size() <= 0){
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < Integer.valueOf(PropertyMgr.getProperty("reProduceTankCount")); i++) {
                 enemyTanks.add(
                         new Tank(
                                 new Random().nextInt(800),
-                                new Random().nextInt(600), false, Tank.Direction.D, this));
+                                new Random().nextInt(600), false, Direction.D, this));
             }
         }
 
@@ -92,7 +92,8 @@ public class TankClient extends Frame {
 
         Color c = g.getColor();
         Graphics gOffScreen = offScreenImage.getGraphics();
-        gOffScreen.setColor(new Color(2, 94, 33));
+        gOffScreen.setColor(Color.black);
+//        gOffScreen.setColor(new Color(2, 94, 33));
         gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         gOffScreen.setColor(c);
         paint(gOffScreen);
@@ -103,11 +104,12 @@ public class TankClient extends Frame {
 
     public void lauchFrame() {
 
-        for (int i = 0; i < 10; i++) {
+        int initTankCount = Integer.valueOf(PropertyMgr.getProperty("initTankCount"));
+        for (int i = 0; i < initTankCount; i++) {
             enemyTanks.add(
                     new Tank(
                             new Random().nextInt(800),
-                            new Random().nextInt(600), false, Tank.Direction.D, this));
+                            new Random().nextInt(600), false, Direction.D, this));
         }
 
 
@@ -121,7 +123,8 @@ public class TankClient extends Frame {
 
         });
         this.setResizable(false);
-        this.setBackground(new Color(2, 94, 33));
+        this.setBackground(Color.black);
+//        this.setBackground(new Color(2, 94, 33));
 
         this.addKeyListener(new keyMonitor());
 

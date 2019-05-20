@@ -25,9 +25,7 @@ public class Tank {
     private Random r = new Random();
     private int step = new Random().nextInt(12) + 3;
 
-    enum Direction {L, LU, R, RU, U, D, LD, RD, STOP}
 
-    ;
 
     TankClient tc = null;
 
@@ -80,7 +78,7 @@ public class Tank {
 
 
     public void draw(Graphics g) {
-        if(this.getRectangle().intersects(tc.w1.getRec()) || this.getRectangle().intersects(tc.w2.getRec())){
+        if(!good && this.getRectangle().intersects(tc.w1.getRec()) || !good && this.getRectangle().intersects(tc.w2.getRec())){
             this.live = false;
         }
 
